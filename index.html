@@ -4,101 +4,627 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <meta name="theme-color" content="#080b16">
+  <meta name="description" content="My personal portfolio showcasing games, AI projects, and creative development.">
+  <title>My Portfolio | Developer & Creator</title>
+
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: #f5f7ff;
-      line-height: 1.6;
+    :root {
+      --bg: #080b16;
+      --panel: #11172a;
+      --text: #f4f5ff;
+      --muted: #a1a9c4;
+      --purple: #9b87ff;
+      --blue: #67c9ff;
+      --border: rgba(159, 173, 255, 0.16);
     }
-    header {
-      padding: 22px 8%;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, Arial, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8, 11, 22, 0.86);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--purple);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.92rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .menu-button {
+      display: none;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 660px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      isolation: isolate;
+      padding: 100px 0;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 480px;
+      height: 480px;
+      top: 60px;
+      right: -150px;
+      background: rgba(117, 82, 255, 0.16);
+      filter: blur(100px);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      max-width: 780px;
+      animation: appear 0.8s ease both;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--blue);
+      background: rgba(103, 201, 255, 0.08);
+      border: 1px solid rgba(103, 201, 255, 0.22);
+      border-radius: 100px;
+      padding: 7px 15px;
+      font-size: 0.85rem;
+      margin-bottom: 26px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.3rem);
+      line-height: 1.04;
+      letter-spacing: -4px;
+      margin-bottom: 25px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 590px;
+      font-size: 1.08rem;
+      margin-bottom: 30px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 21px;
+      border-radius: 10px;
+      font-weight: 750;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button-primary {
+      background: linear-gradient(110deg, #a18aff, #6c9dff);
+      color: #080b16;
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 34px;
+    }
+
+    .section-label {
+      color: var(--purple);
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin: 8px 0 12px;
+    }
+
+    .section-heading p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+    }
+
+    .panel {
+      background: linear-gradient(
+        145deg,
+        rgba(24, 32, 57, 0.92),
+        rgba(14, 19, 36, 0.92)
+      );
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .panel h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    .panel p {
+      color: var(--muted);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .skill {
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      color: #d8d7ff;
+      border-radius: 8px;
+      background: rgba(155, 135, 255, 0.09);
+      border: 1px solid var(--border);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      min-height: 255px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(155, 135, 255, 0.55);
+    }
+
+    .project-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      background: rgba(155, 135, 255, 0.12);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 1.6rem;
+      margin-bottom: 22px;
+    }
+
+    .project-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      margin-top: auto;
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .contact-panel {
+      text-align: center;
+      padding: 55px 25px;
+      background:
+        radial-gradient(ellipse at top, rgba(122, 96, 255, 0.15), transparent 65%),
+        var(--panel);
+    }
+
+    .contact-panel p {
+      max-width: 520px;
+      margin: 0 auto 25px;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #26304a;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    header a, .links a {
-      color: #a5b4fc;
-      text-decoration: none;
-      margin-left: 16px;
+
+    .footer-inner a {
+      color: var(--blue);
     }
-    main { max-width: 950px; margin: auto; padding: 70px 24px; }
-    .tag { color: #a5b4fc; }
-    h1 { font-size: clamp(40px, 7vw, 68px); line-height: 1.1; }
-    h2 { margin-top: 55px; }
-    .card {
-      background: #151d33;
-      padding: 24px;
-      border-radius: 16px;
-      border: 1px solid #293653;
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
     }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .button {
-      display: inline-block;
-      background: #818cf8;
-      color: #0b1020;
-      padding: 12px 20px;
-      border-radius: 9px;
-      text-decoration: none;
-      font-weight: bold;
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    footer { text-align: center; padding: 30px; color: #aab4ce; }
+
+    @media (max-width: 760px) {
+      .nav-inner {
+        min-height: 66px;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 66px;
+        left: 0;
+        right: 0;
+        padding: 22px 5%;
+        background: #0c1020;
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hero {
+        min-height: 570px;
+        padding: 75px 0;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .about-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        min-height: 220px;
+      }
+
+      .panel {
+        padding: 23px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <header>
-    <strong>MY PORTFOLIO</strong>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <!-- NAVIGATION -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="logo" href="#home">MY<span>PORTFOLIO.</span></a>
+
+      <button class="menu-button" id="menuButton"
+        aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <p class="tag">HELLO, WORLD 👋</p>
-    <h1>I'm Your Name.<br>Creative Developer.</h1>
-    <p>I build games, websites, and AI projects.</p>
-    <a class="button" href="#projects">Explore my work</a>
+    <!-- HERO -->
+    <section class="hero container" id="home">
+      <div class="hero-content">
+        <span class="eyebrow">✦ Welcome to my digital space</span>
 
-    <h2 id="about">About Me</h2>
-    <div class="card">
-      I'm a creator who enjoys building digital projects
-      and learning new technologies.
-    </div>
+        <!-- CHANGE YOUR NAME BELOW -->
+        <h1>Hey, I'm <span class="gradient-text">Your Name.</span><br>
+          I create things for the web.</h1>
 
-    <h2 id="projects">My Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>🎮 Unity Game</h3>
-        <p>A game project I created using Unity.</p>
-      </div>
-      <div class="card">
-        <h3>🤖 AI Telegram Bot</h3>
-        <p>An AI chatbot built with n8n.</p>
-      </div>
-      <div class="card">
-        <h3>🌐 My Website</h3>
-        <p>My personal portfolio and experiments.</p>
-      </div>
-    </div>
+        <p>
+          I'm a creative developer who enjoys building games,
+          experimenting with AI, and bringing digital ideas to life.
+        </p>
 
-    <h2 id="contact">Contact Me</h2>
-    <p>Interested in my work? Get in touch.</p>
-    <div class="links">
-      <a href="https://github.com/">GitHub</a>
-      <a href="mailto:your@email.com">Email Me</a>
-    </div>
+        <div class="actions">
+          <a class="button button-primary" href="#projects">Explore my work ↗</a>
+          <a class="button button-secondary" href="#contact">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="container reveal" id="about">
+      <div class="section-heading">
+        <span class="section-label">A little about me</span>
+        <h2>Who am I?</h2>
+        <p>Curious mind. Creative ideas. Always learning.</p>
+      </div>
+
+      <div class="about-grid">
+        <article class="panel">
+          <h3>My story 👋</h3>
+          <p>
+            Hi! I'm a creator interested in technology, game development,
+            websites, and artificial intelligence. I enjoy learning by
+            building real projects and turning ideas into something people
+            can use.
+          </p>
+          <p style="margin-top:14px">
+            This portfolio is where I share my journey and the things I make.
+          </p>
+        </article>
+
+        <article class="panel">
+          <h3>Things I work with ⚡</h3>
+          <p>Some of the technologies and tools I'm exploring.</p>
+          <div class="skills">
+            <span class="skill">Unity</span>
+            <span class="skill">C#</span>
+            <span class="skill">HTML & CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">AI Tools</span>
+            <span class="skill">n8n</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="container reveal" id="projects">
+      <div class="section-heading">
+        <span class="section-label">Selected work</span>
+        <h2>Things I've built.</h2>
+        <p>A collection of projects, experiments, and ideas.</p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="panel project-card">
+          <div class="project-icon">🎮</div>
+          <h3>Unity Game</h3>
+          <p>
+            A game development project built with Unity.
+            Add a description of your own game here.
+          </p>
+          <!-- Replace # with your project's real URL -->
+          <a class="project-link" href="#contact">View project ↗</a>
+        </article>
+
+        <article class="panel project-card">
+          <div class="project-icon">🤖</div>
+          <h3>AI Telegram Bot</h3>
+          <p>
+            An AI chatbot experiment with n8n, designed to explore
+            conversations and automation.
+          </p>
+          <a class="project-link" href="#contact">View project ↗</a>
+        </article>
+
+        <article class="panel project-card">
+          <div class="project-icon">🌐</div>
+          <h3>My Portfolio</h3>
+          <p>
+            My personal website, created to share my work and learn
+            more about web development.
+          </p>
+          <a class="project-link" href="#home">You're here ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="container reveal" id="contact">
+      <div class="panel contact-panel">
+        <span class="section-label">Let's connect</span>
+        <h2>Have an idea? <span class="gradient-text">Let's talk.</span></h2>
+        <p>
+          Interested in my projects or want to collaborate?
+          You can find me through the links below.
+        </p>
+
+        <div class="actions" style="justify-content:center">
+          <!-- CHANGE THIS TO YOUR REAL EMAIL -->
+          <a class="button button-primary"
+             href="mailto:your@email.com">✉ Email me</a>
+
+          <!-- CHANGE THIS TO YOUR GITHUB PROFILE -->
+          <a class="button button-secondary"
+             href="https://github.com/h-code-web"
+             target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>© 2026 Your Name. Built with passion.</footer>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Your Name. Made with creativity.</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.textContent = isOpen ? "✕" : "☰";
+    });
+
+    // Close the mobile menu after clicking a link
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.textContent = "☰";
+      });
+    });
+
+    // Reveal sections when scrolling
+    const revealItems = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add("visible"));
+    }
+
+    // Automatic copyright year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
 </body>
 </html>
